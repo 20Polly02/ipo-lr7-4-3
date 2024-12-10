@@ -1,0 +1,38 @@
+[
+    {
+      "id":"1",
+      "name":"Symbioz",
+      "manufacturer":"Renault",
+      "is_petrol":"Да",
+      "tank_volume":"48"
+      
+    },
+    {
+       "id":"2",
+      "name":"F91",
+      "manufacturer":"BMW M8",
+      "is_petrol":"Да",
+      "tank_volume":"68" 
+    },
+    {
+        "id":"3",
+       "name":"E5",
+       "manufacturer":"Geely Galaxy ",
+       "is_petrol":"Нет ",
+       "tank_volume":"Батарея: 49.62 кВтч" 
+     },
+     {
+        "id":"4",
+       "name":"Vezel",
+       "manufacturer":"Honda",
+       "is_petrol":"Да ",
+       "tank_volume":"40" 
+     },
+     {
+        "id":"5",
+       "name":"Focus",
+       "manufacturer":"Ford",
+       "is_petrol":"Да",
+       "tank_volume":"55" 
+     }
+]

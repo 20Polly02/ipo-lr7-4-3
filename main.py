@@ -1,154 +1,80 @@
-import json # Подключение библиотеки
-
-with open("car.json", 'r', encoding = 'utf-8') as file:  
-    data = json.load(file) # Считываем из файла
-
-count = 0 # Для подсчёта выполненных операций
-
-while True:
-    menu=("""Доступные операции:  
-      1. Вывести все записи.  
-      2. Вывести запись по полю.  
-      3. Добавить запись.  
-      4. Удалить запись по полю.  
-      5. Выйти из программы. """)  
-    print(menu)  
-
-    while True:
-        numb = input("Введите номер действия: ")
-        if numb.isdigit():
-            numb = int(numb)
-            break
-        else: 
-            print("Введите число!(цифрой)")
-
-
-    if numb == 1: # Выводим все записи
-
-        print(" Все записи: ")
-        for car in data:
+import json  # импортируем библиотеку json
+with open("car.json", 'r', encoding='utf-8') as file  # открываем в режиме чтения с кодировкой UTF-8
+car_file = json.load(file)  # загружаем содержимое файла в переменную car_file
+count = 0  #счетчик операций
+while True:# Запускаем бесконечный цикл для работы программы до выхода пользователя.
+    print("""
+       1: Вывести все записи 
+       2: Вывести запись по полю 
+       3: Добавить запись 
+       4: Удалить запись по полю 
+       5: Выйти из программы
+    """)#вывод меню на консоль
+    num_id = input("Введите номер действия(цифрой): ")  #ввод пункта для выполнения
+    if num_id == "1":#если пользователь выбрал следущий пункт, то выполняются следущие действия
+        for car in car_file:  # Перебираем все объекты из car_file
             print(f"""
             Номер записи: {car['id']}, 
             Название модели: {car['name']},                       
             Название производителя: {car['manufacturer']}, 
-            Заправляется ли бензином: {car['is_petrol']},    
+            Заправляется ли бензином:{car['is_petrol']},    
             Объем бака: {car['tank_volume']} 
             """)
-        count += 1
-
-    elif numb == 2: # Выводим определенную запись
-
-        while True:
-            id = input("Введите номер записи: ")
-            if id.isdigit():
-                id = int(id)
-                break
-            else: 
-                print("Введите номер записи цифрой!")
-        
-        find = False
-        for car in data:
-            if id == car['id']:
-                print("")
+        count += 1  # увеличиваем счетчик операций на 1
+    elif num_id == "2":#если пользователь выбрал следущий пункт, то выполняются следущие действия
+        id = int(input("Введите номер машины : "))  # запрашивваем у пользователя номер записи
+        find = False  # переменная для проверки, была ли найдена такая запись
+        for car in car_file:  # перебираем все записи 
+            if id == car['id']:  # сравниваем то что ввел пользователь и "id" записи
                 print(f"""
-                Номер записи: {car['id']},
-                Общее название: {car['name']},
-                Название производителя: : {car['manufacturer']},
-                Заправляется ли бензином: {car['is_petrol']},
-                Объем бака: {car['tank_volume']}
-                """)
-                find = True
-                break
-
-        count += 1
-
-        if not find: 
-            print(" Запись не найдена ")
-
-
-    elif numb == 3: # Добавление новой записи
-
-        while True:
-            id = input("Введите номер машины: ")
-            if id.isdigit():
-                id = int(id)
-                break
-            else: 
-                print("Введите номер машины цифрой!")
-
-        find = False
-        for car in data:
-            if car['id'] == id:
-                find = True
-                break
-        
-        if find: 
-            print("Такой номер уже существует.")
-        else:
-            new_name = input("Введите название модели: ")  
-            new_manufacturer  = input("Введите производителя: ")  
-
-            while True:
-                numb = input("Введите,заправляется ли бензином (1 - да/ 2 - нет): ")
-                if numb.isdigit():
-                    numb = int(numb)
-                    if numb == 1:
-                        new_is_petrol = 'да'
-                        break
-                    elif numb == 2:
-                        new_is_petrol = 'нет'
-                        break
-                    # else :
-                    #     print("Введите одно из предложенных чисел!")
-                else :
-                    print("Вы должны ввести число!(1 - заправляется бензином, 2 - не заправляется)")
-                
-            while True:
-                new_tank_volume = input("Введите объём бака(целым числом): ")
-                if new_tank_volume.isdigit():
-                    new_tank_volume = int(new_tank_volume)
-                    break
-                else: 
-                    print("Введите объём бака целым числом!")
-           
-
-            new_car = {
+            Номер записи: {car['id']}, 
+            Название модели: {car['name']},                       
+            Название производителя: {car['manufacturer']}, 
+            Заправляется ли бензином:{car['is_petrol']},    
+            Объем бака: {car['tank_volume']} 
+            """)#вывод записи на консоль
+                find = True  # если запись найдена
+                break  # прекращение поиска
+        count += 1  # увеличиваем счетчик операций на 1
+        if not find:  # Если запись не найдена
+            print("Запись не найдена.")  #вывод на консоль
+    elif num_id == "3":#если пользователь выбрал следущий пункт, то выполняются следущие действия   
+        id = int(input("Введите номер машины(число):"))     
+        name = input("Введите название модели машины: ")  
+        manufacturer = input("Введите назване производителя: ")  
+        is_petrol = input("Введите, заправляется ли машина бензином (да/нет): ")  
+        tank_volume = input("Введите обьем бака(целое число): ")
+        new_car = {
                 'id': id,
-                'name': new_name,
-                'manufacturer':  new_manufacturer,
-                'is_petrol': True if new_is_petrol.lower() == 'да' else False, 
-                'tank_volume':  new_tank_volume
-            }
+                'name': name,
+                'manufacturer':manufacturer ,
+                'is_petrol': True if is_petrol.lower() == 'да' else False, 
+                'tank_volume': tank_volume
+            }#заполнение данных о нашей новой машине
 
-            data.append(new_car) 
-            with open("car.json", 'w', encoding='utf-8') as out_file: 
-                json.dump(data, out_file)
-            print("Машина успешно добавлена.")
-
-        count += 1
-
-    elif numb == 4: # Удаляем запись
-        id = int(input("Введите номер записи для удаления: "))
-        find = False  
-
-        for car in data:
-            if id == car['id']:
-                data.remove(car) # Удаление 
-                find = True  
-                break 
-
-        if not find:
-            print("Запись не найдена.")
-        else:
+        car_file.append(new_car)  # добавляем новую запись в список
+        with open("car.json", 'w', encoding='utf-8') as out_file:  # открываем файл для записи
+            json.dump(car_file, out_file)  # сохраняем обновленный список машин
+        print("Запись успешно добавлена.")#вывод на консоль
+        count += 1    # увеличиваем счетчик операций на 1
+    elif num_id == "4":#если пользователь выбрал следущий пункт, то выполняются следущие действия
+        id = int(input("Введите номер машины: "))  # ввод номена машины от пользователя
+        find = False  # переменная для проверки, была ли найдена такая запись
+        for car in car_file:  # перебираем все записи из файла
+            if id == car['id']:  # если запись найдена
+                car_file.remove(car)  # удаляем машину из списка
+                find = True   # если запись найдена
+                break   # прекращение поиска
+        if not find:  # если запись не найдена
+            print("Запись не найдена.")#вывод на консоль
+        else:  # Если запись удалена, сохраняем изменения в файл.
             with open("car.json", 'w', encoding='utf-8') as out_file:
-                json.dump(data, out_file)
-            print("Запись успешно удалена.")
-        count += 1
-
-    elif numb == 5: # Завершаем программу
-        print(f"Программа завершена.Кол-во операций: {count}") 
-        break
-
-
-    else:
-        print("Число должно быть от 1 до 5!")
+                json.dump(car_file, out_file)  # cохраняем обновленный список машин
+            print("Запись успешно удалена.")# вывод на консоль
+        count += 1   # увеличиваем счетчик операций на 1 
+    elif num_id == "5":#если пользователь выбрал следущий пункт, то выполняются следущие действия
+        print(f"""Программа завершена.
+               Количество операций: {count}""") #вывод количества операций на консоль 
+        break  # Прерываем бесконечный цикл.
+    else:#если номер введенного пункта не найден
+        print("Такого номера нет.") #вывод на консоль   

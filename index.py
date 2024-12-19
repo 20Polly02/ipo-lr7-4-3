@@ -110,7 +110,7 @@ def main(): # Функция main вызывающая все остальные
                 
             elif num == 5:
                 exit()
-                print("Количество операций:{count}")
+                print("Количество операций:",count)
                 break
             else:
                 print("Такого номера нет.")
